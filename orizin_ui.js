@@ -11,7 +11,7 @@ class ORIZIN_UI {
             toggle_element.insertAdjacentHTML("afterend", "<label for='" + toggle_id + "'><div></div></label>");
         });
 
-        document.body.insertAdjacentHTML("afterend", `
+        document.body.insertAdjacentHTML("afterbegin", `
             <style>
                 :root {
                     --toggle_width: 2.5rem;
@@ -81,7 +81,7 @@ class ORIZIN_UI {
             input_element_num += 1;
         });
 
-        document.body.insertAdjacentHTML("afterend", `
+        document.body.insertAdjacentHTML("afterbegin", `
             <style>
                 :root {
                     --underline_color_normal: rgba(0, 0, 0, 0.7);
