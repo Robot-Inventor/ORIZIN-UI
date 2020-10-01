@@ -1,5 +1,15 @@
 class ORIZIN_UI {
-    toggle_switch(toggle_switch_target="input[type=checkbox].toggle") {
+    toggle_switch({
+        toggle_switch_target = "input[type=checkbox].toggle",
+        toggle_width = "2.5rem",
+        toggle_height = "1rem",
+        toggle_border_thickness = "0.05rem",
+        toggle_border_color = "gray",
+        toggle_disabled_color = "white",
+        toggle_enabled_color = "#adff99",
+        toggle_handle_color = "white",
+        toggle_handle_diameter = "calc(var(--toggle_height) + 0.4rem)"
+    } = {}) {
         let toggle_element_num = 0;
         document.querySelectorAll(toggle_switch_target).forEach(function(toggle_element) {
             let toggle_id = toggle_element.getAttribute("id");
@@ -11,17 +21,17 @@ class ORIZIN_UI {
             toggle_element.insertAdjacentHTML("afterend", "<label for='" + toggle_id + "'><div></div></label>");
         });
 
-        document.body.insertAdjacentHTML("afterbegin", `
+        this._insert_css(`
             <style>
                 :root {
-                    --toggle_width: 2.5rem;
-                    --toggle_height: 1rem;
-                    --toggle_border_thickness: 0.05rem;
-                    --toggle_border_color: gray;
-                    --toggle_disabled_color: white;
-                    --toggle_enabled_color: #adff99;
-                    --toggle_handle_color: white;
-                    --toggle_handle_radius: calc(var(--toggle_height) + 0.4rem);
+                    --toggle_width: ${toggle_width};
+                    --toggle_height: ${toggle_height};
+                    --toggle_border_thickness: ${toggle_border_thickness};
+                    --toggle_border_color: ${toggle_border_color};
+                    --toggle_disabled_color: ${toggle_disabled_color};
+                    --toggle_enabled_color: ${toggle_enabled_color};
+                    --toggle_handle_color: ${toggle_handle_color};
+                    --toggle_handle_diameter: ${toggle_handle_diameter};
                 }
 
                 ${toggle_switch_target} {
@@ -36,7 +46,7 @@ class ORIZIN_UI {
                     height: var(--toggle_height);
                     border: solid var(--toggle_border_thickness) var(--toggle_border_color);
                     border-radius: var(--toggle_width);
-                    margin: calc(var(--toggle_handle_radius) - var(--toggle_height));
+                    margin: calc(var(--toggle_handle_diameter) - var(--toggle_height));
                     padding: 0;
                     vertical-align: bottom;
                     overflow: visible;
@@ -52,8 +62,8 @@ class ORIZIN_UI {
                     display: block;
                     content: "";
                     background: var(--toggle_handle_color);
-                    width: var(--toggle_handle_radius);
-                    height: var(--toggle_handle_radius);
+                    width: var(--toggle_handle_diameter);
+                    height: var(--toggle_handle_diameter);
                     border: var(--toggle_border_color) solid var(--toggle_border_thickness);
                     border-radius: var(--toggle_width);
                     box-shadow: 0 2px 5px var(--shadow);
@@ -71,7 +81,14 @@ class ORIZIN_UI {
         `);
     }
 
-    underline_textbox(underline_textbox_target="input[type=text].underline_textbox") {
+    // underline_textbox(underline_textbox_target="input[type=text].underline_textbox") {
+    underline_textbox({
+        underline_textbox_target = "input[type=text].underline_textbox",
+        underline_color_normal = "rgba(0, 0, 0, 0.7)",
+        underline_color_focused = "#ff6a00",
+        underline_thickness = "0.15rem",
+        underline_textbox_width = "50%"
+    } = {}) {
         let input_element_num = 0;
         document.querySelectorAll(underline_textbox_target).forEach(function(input_element) {
             const input_group_id = "input_group_" + input_element_num;
@@ -81,13 +98,13 @@ class ORIZIN_UI {
             input_element_num += 1;
         });
 
-        document.body.insertAdjacentHTML("afterbegin", `
+        this._insert_css(`
             <style>
                 :root {
-                    --underline_color_normal: rgba(0, 0, 0, 0.7);
-                    --underline_color_focused: #ff6a00;
-                    --underline_thickness: 0.15rem;
-                    --underline_textbox_width: 50%;
+                    --underline_color_normal: ${underline_color_normal};
+                    --underline_color_focused: ${underline_color_focused};
+                    --underline_thickness: ${underline_thickness};
+                    --underline_textbox_width: ${underline_textbox_width};
                 }
 
                 .text_input_group {
@@ -150,5 +167,9 @@ class ORIZIN_UI {
     all({toggle_switch_arg, underline_textbox_arg} = {}) {
         this.toggle_switch(toggle_switch_arg);
         this.underline_textbox(underline_textbox_arg);
+    }
+
+    _insert_css(content) {
+        document.body.insertAdjacentHTML("afterbegin", content);
     }
 }
