@@ -11,7 +11,7 @@ class ORIZIN_UI {
             toggle_element.insertAdjacentHTML("afterend", "<label for='" + toggle_id + "'><div></div></label>");
         });
 
-        document.body.insertAdjacentHTML("afterbegin", `
+        this._insert_css(`
             <style>
                 :root {
                     --toggle_width: 2.5rem;
@@ -81,7 +81,7 @@ class ORIZIN_UI {
             input_element_num += 1;
         });
 
-        document.body.insertAdjacentHTML("afterbegin", `
+        this._insert_css(`
             <style>
                 :root {
                     --underline_color_normal: rgba(0, 0, 0, 0.7);
@@ -150,5 +150,9 @@ class ORIZIN_UI {
     all({toggle_switch_arg, underline_textbox_arg} = {}) {
         this.toggle_switch(toggle_switch_arg);
         this.underline_textbox(underline_textbox_arg);
+    }
+
+    _insert_css(content) {
+        document.body.insertAdjacentHTML("afterbegin", content);
     }
 }
