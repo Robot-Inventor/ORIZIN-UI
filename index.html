@@ -14,115 +14,116 @@
         <div class="outer">
             <h2>トグルスイッチ</h2>
             <div>
-                <input type="checkbox" class="toggle" id="checkbox_sample">
+                <toggle-switch id="checkbox_sample"></toggle-switch>
                 <div id="checkbox_result">not checked!</div>
-                <input type="checkbox" class="toggle" id="checkbox_sample2" checked>
+                <toggle-switch id="checkbox_sample2" checked></toggle-switch>
                 <div id="checkbox_result2">checked!</div>
             </div>
         </div>
         <div class="outer">
             <h2>アンダーライン付きテキストボックス</h2>
             <div>
-                <input type="text" class="underline_textbox" id="underline_textbox_sample" value="hogehoge">
+                <underlined-textbox id="underline_textbox_sample" value="hogehoge"></underlined-textbox>
                 <button id="get_text">値を取得</button><br>
                 結果: <span id="underline_textbox_result">hogehoge</span>
             </div>
         </div>
     </main>
-</body>
-<style>
-    * {
-        color: rgba(0, 0, 0, 0.7);
-    }
-
-    a {
-        color: #8585ff
-    }
-
-    html,
-    body,
-    main {
-        background: white;
-    }
-
-    @media (prefers-color-scheme: dark) {
+    <style>
         * {
-            color: white;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        a {
+            color: #8585ff
         }
 
         html,
         body,
         main {
-            background: #111111;
+            background: white;
         }
 
-        :root {
-            --underline_color_normal: white;
+        @media (prefers-color-scheme: dark) {
+            * {
+                color: white;
+            }
+
+            html,
+            body,
+            main {
+                background: #111111;
+            }
+
+            underlined-textbox::part(normal_underline) {
+                background: white;
+            }
+
+            underlined-textbox::part(textbox) {
+                color: white;
+            }
         }
-    }
 
-    #language_select {
-        margin-left: 2rem;
-    }
-
-    h1 {
-        margin-left: 2rem;
-    }
-
-    .outer {
-        width: auto;
-        height: auto;
-        border-radius: 0.5rem;
-        border: solid gray 0.1rem;
-        margin: 2rem;
-        padding: 0 2rem 2rem 2rem;
-    }
-
-    button {
-        cursor: pointer;
-        border-radius: 1rem;
-        padding: 0.2rem 1rem;
-        outline: none;
-        border: solid #ff6a00 0.1rem;
-        background: transparent;
-        color: #ff6a00;
-        transition: 0.3s;
-    }
-
-    button:hover {
-        background: #ff6a00;
-        color: white;
-    }
-</style>
-<script src="orizin_ui.min.js"></script>
-<script>
-    const ui = new ORIZIN_UI();
-    ui.all();
-
-    const checkbox = document.getElementById("checkbox_sample");
-    checkbox.addEventListener("change", function() {
-        let checkbox_status;
-        if(checkbox.checked) {
-            checkbox_status = "checked!";
-        } else {
-            checkbox_status = "not checked!";
+        #language_select {
+            margin-left: 2rem;
         }
-        document.getElementById("checkbox_result").textContent = checkbox_status;
-    });
 
-    const checkbox2 = document.getElementById("checkbox_sample2");
-    checkbox2.addEventListener("change", function() {
-        let checkbox_status;
-        if(checkbox2.checked) {
-            checkbox_status = "checked!";
-        } else {
-            checkbox_status = "not checked!";
+        h1 {
+            margin-left: 2rem;
         }
-        document.getElementById("checkbox_result2").textContent = checkbox_status;
-    });
 
-    document.getElementById("get_text").addEventListener("click", function() {
-        document.getElementById("underline_textbox_result").textContent = document.getElementById("underline_textbox_sample").value;
-    });
-</script>
+        .outer {
+            width: auto;
+            height: auto;
+            border-radius: 0.5rem;
+            border: solid gray 0.1rem;
+            margin: 2rem;
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        button {
+            cursor: pointer;
+            border-radius: 1rem;
+            padding: 0.2rem 1rem;
+            outline: none;
+            border: solid #ff6a00 0.1rem;
+            background: transparent;
+            color: #ff6a00;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff6a00;
+            color: white;
+        }
+    </style>
+    <script src="orizin_ui.js"></script>
+    <script>
+        const checkbox = document.getElementById("checkbox_sample");
+        checkbox.addEventListener("change", function() {
+            let checkbox_status;
+            if(checkbox.checked) {
+                checkbox_status = "checked!";
+            } else {
+                checkbox_status = "not checked!";
+            }
+            document.getElementById("checkbox_result").textContent = checkbox_status;
+        });
+
+        const checkbox2 = document.getElementById("checkbox_sample2");
+        checkbox2.addEventListener("change", function() {
+            let checkbox_status;
+            if(checkbox2.checked) {
+                checkbox_status = "checked!";
+            } else {
+                checkbox_status = "not checked!";
+            }
+            document.getElementById("checkbox_result2").textContent = checkbox_status;
+        });
+
+        document.getElementById("get_text").addEventListener("click", function() {
+            document.getElementById("underline_textbox_result").textContent = document.getElementById("underline_textbox_sample").value;
+        });
+    </script>
+</body>
 </html>
