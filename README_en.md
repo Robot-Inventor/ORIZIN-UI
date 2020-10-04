@@ -23,90 +23,95 @@ Here's a simple example using the ORIZIN UI.
     <title>ORIZIN UI Sample</title>
 </head>
 <body>
-    <input type="checkbox" class="toggle">    <!-- toggle switch -->
-    <input type="text" class="underline_textbox">    <!-- textbox with underline -->
+    <toggle-switch></toggle-switch>    <!-- toggle switch -->
+    <underlined-textbox></underlined-textbox>    <!-- textbox with underline -->
 </body>
-<script src="orizin_ui.js"></script>
-<script>
-    const ui = new ORIZIN_UI();
-    ui.all();
-</script>
+<script src="orizin_ui.min.js"></script>
 </html>
 ```
 
-The ``ui.all();`` part can be written separately as follows with exactly the same result.
+### How to apply CSS
 
-```javascript
-ui.toggle_switch();
-ui.underline_textbox();
+You can use ``::part()`` to apply styles.
+
+#### For toggle switches
+
+In the case of toggle switches, the styles should be applied like this
+
+```css
+toggle-switch::part(foundation) {
+    /* Style of the toggle switch foundation in normal operation */
+}
+
+toggle-switch[checked]::part(foundation) {
+    /* Style of the toggle switch foundation when the toggle switch is on */
+}
+
+toggle-switch::part(handle) {
+    /* Handle style of the toggle switch in normal operation */
+}
+
+toggle-switch[checked]::part(handle) {
+    /* Style of the toggle switch handle when the toggle switch is on */
+}
 ```
 
-You can improve processing speed and prevent class name interference by executing only what you need individually.
+As a reminder, the size of the toggle switches will not change even if you specify ``width`` or ``height`` to ``toggle-switch`` themselves. If you want to change the size of the toggle switches, you should basically use the CSS above to change the size of each part, but if you don't want to change the ratio of height to width, ``transform`` may be enough. For example, if you want to make them twice as big, you can use the following.
 
-To run them individually, you can pass arguments as follows. The following are the default values.
-
-```javascript
-const toggle_arg = {
-    toggle_switch_target: "input[type=checkbox].toggle", // specify the target with the CSS selector
-    toggle_width: "2.5rem", // width of the toggle switch
-    toggle_height: "1rem", // height of the toggle switch
-    toggle_border_thickness: "0.05rem", // thickness of the toggle switch outline
-    toggle_border_color: "gray", // color of the toggle switch outline
-    toggle_disabled_color: "white", // background color when the toggle switch is off
-    toggle_enabled_color: "#adff99", // background color when the toggle switch is on
-    toggle_handle_color: "white", // background color of the toggle switch's handle
-    toggle_handle_diameter: "calc(var(--toggle_height) + 0.4rem)" // diameter of the toggle switch's handle
-};
-ui.toggle_switch(toggle_arg);
-
-const textbox_arg = {
-    underline_textbox_target :"input[type=text].underline_textbox", // specify the target with the CSS selector
-    underline_color_normal: "rgba(0, 0, 0, 0.7)", // normal underline color
-    underline_color_focused: "#ff6a00", // underline color during text entry
-    underline_thickness: "0.15rem", // thickness of underline
-    underline_textbox_width: "50%" // width of the textbox
-};
-ui.underline_textbox(textbox_arg);
+```css
+toggle-switch {
+    transform: scale(2);
+}
 ```
 
-Even if you use the all() function, you can pass arguments to it as follows. The property values of the objects in the arguments are passed directly to the functions. The properties and default values are the same as when executing the toggle_switch() and underline_textbox() functions individually.
+#### For underlined text boxes
 
-```javascript
-const args = {
-    toggle_switch_arg: {
-        // toggle_switch()関数に渡す引数を記述
-        toggle_switch_target: "input[type=checkbox].toggle", // specify the target with the CSS selector
-        toggle_width: "2.5rem", // width of the toggle switch
-        toggle_height: "1rem", // height of the toggle switch
-        toggle_border_thickness: "0.05rem", // thickness of the toggle switch outline
-        toggle_border_color: "gray", // color of the toggle switch outline
-        toggle_disabled_color: "white", // background color when the toggle switch is off
-        toggle_enabled_color: "#adff99", // background color when the toggle switch is on
-        toggle_handle_color: "white", // background color of the toggle switch's handle
-        toggle_handle_diameter: "calc(var(--toggle_height) + 0.4rem)" // diameter of the toggle switch's handle
-    },
-    underline_textbox_arg: {
-        // underline_textbox()関数に渡す引数を記述
-        underline_textbox_target :"input[type=text].underline_textbox", // specify the target with the CSS selector
-        underline_color_normal: "rgba(0, 0, 0, 0.7)", // normal underline color
-        underline_color_focused: "#ff6a00", // underline color during text entry
-        underline_thickness: "0.15rem", // thickness of underline
-        underline_textbox_width: "50%" // width of the textbox
-    }
-};
-ui.all(args);
+For underlined text boxes, apply the style as follows
+
+```css
+underlined-textbox::part(textbox) {
+    /* The style of the normal text entry part */
+}
+
+underlined-textbox::part(textbox):focus {
+    /* The style of the text input part during text entry */
+}
+
+underlined-textbox::part(normal_underline) {
+    /* Normal underline style */
+}
+
+underlined-textbox::part(focused_underline) {
+    /* Underline style during text entry */
+}
 ```
 
-Whether you use the all() function or execute each function individually, you can specify the target's CSS selector as you like, but the target must be an input element and its type attribute must look like the following.
+### Attributes
 
-|Element|Type attribute|
-|:--|:--|
-|toggle switch|``checkbox``|
-|textbox with underline|``text``|
+The toggle switches are internally normal input element check boxes, and the underlined text boxes are internally normal input element text boxes. Attributes given to toggle switches and underlined text boxes are passed directly to input elements used internally by this library. The attributes that toggle switches and underlined text boxes support are as follows
 
-### How to get/set the value
+#### Attributes supported by the toggle switches
 
-Values can be retrieved and set in the same way as regular check boxes for toggle switches and regular text boxes for underlined text boxes.
+- checked
+
+#### Attributes supported by the underlined text boxes
+
+- value
+- autocomplete
+- list
+- maxlength
+- minlength
+- pattern
+- placeholder
+- readonly
+- required
+- size
+
+These attributes can be retrieved and set with ``getAttribute()`` and ``setAttribute()`` in JavaScript. They can also be retrieved and set using JavaScript properties.
+
+### Events
+
+This corresponds to the change event and input event. In terms of event firing conditions, the toggle switch is the same as the check box of the input element, and the text box with underline is the same as the text box of the input element. This is because we are conveying the events of the input element as it is used internally.
 
 ## What is ORIZIN Series
 

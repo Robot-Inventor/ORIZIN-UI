@@ -19,90 +19,95 @@ ORIZIN UIを使った簡単な例です。
     <title>ORIZIN UI Sample</title>
 </head>
 <body>
-    <input type="checkbox" class="toggle">    <!-- トグルスイッチ -->
-    <input type="text" class="underline_textbox">    <!-- アンダーライン付きテキストボックス -->
+    <toggle-switch></toggle-switch>    <!-- トグルスイッチ -->
+    <underlined-textbox></underlined-textbox>    <!-- アンダーライン付きテキストボックス -->
 </body>
-<script src="orizin_ui.js"></script>
-<script>
-    const ui = new ORIZIN_UI();
-    ui.all();
-</script>
+<script src="orizin_ui.min.js"></script>
 </html>
 ```
 
-``ui.all();``の部分は以下のように個別に書いても全く同じ結果になります。
+### CSSの適用方法
 
-```javascript
-ui.toggle_switch();
-ui.underline_textbox();
+``::part()``を使用してスタイルを適用することが出来ます。
+
+#### トグルスイッチの場合
+
+トグルスイッチの場合は以下のようにしてスタイルを適用してください。
+
+```css
+toggle-switch::part(foundation) {
+    /* 通常時のトグルスイッチの土台部分のスタイル */
+}
+
+toggle-switch[checked]::part(foundation) {
+    /* onのときのトグルスイッチの土台部分のスタイル */
+}
+
+toggle-switch::part(handle) {
+    /* 通常時のトグルスイッチのハンドル部分のスタイル */
+}
+
+toggle-switch[checked]::part(handle) {
+    /* onのときのトグルスイッチのハンドル部分のスタイル */
+}
 ```
 
-個別に必要なもののみ実行することで処理速度を向上させたり，クラス名の干渉を防いだりすることが出来ます。
+注意点として，``toggle-switch``そのものに``width``や``height``を指定してもトグルスイッチの大きさは変わりません。大きさを変更したい場合は基本的には上記のCSSの書き方でパーツごとに行うことになりますが，縦と横の比率を変えないのであれば``transform``で十分かもしれません。例えば2倍の大きさにする場合は以下のようになります。
 
-個別に実行する際は以下のようにして引数を渡すことが出来ます。以下は全てデフォルト値です。
-
-```javascript
-const toggle_arg = {
-    toggle_switch_target: "input[type=checkbox].toggle", // ターゲットをCSSセレクターで指定
-    toggle_width: "2.5rem", // トグルスイッチの幅
-    toggle_height: "1rem", // トグルスイッチの高さ
-    toggle_border_thickness: "0.05rem", // トグルスイッチの輪郭線の太さ
-    toggle_border_color: "gray", // トグルスイッチの輪郭線の色
-    toggle_disabled_color: "white", // トグルスイッチがOFFの際の背景色
-    toggle_enabled_color: "#adff99", // トグルスイッチがONの際の背景色
-    toggle_handle_color: "white", // トグルスイッチのハンドルの色
-    toggle_handle_radius: "calc(var(--toggle_height) + 0.4rem)" // トグルスイッチのハンドルの直径
-};
-ui.toggle_switch(toggle_arg);
-
-const textbox_arg = {
-    underline_textbox_target :"input[type=text].underline_textbox", // ターゲットをCSSセレクターで指定
-    underline_color_normal: "rgba(0, 0, 0, 0.7)", // 通常時のアンダーラインの色
-    underline_color_focused: "#ff6a00", // テキスト入力中のアンダーラインの色
-    underline_thickness: "0.15rem", // アンダーラインの太さ
-    underline_textbox_width: "50%" // テキストボックスの幅
-};
-ui.underline_textbox(textbox_arg);
+```css
+toggle-switch {
+    transform: scale(2);
+}
 ```
 
-all()関数を使用する場合でも以下のようにして引数を渡すことが出来ます。引数のオブジェクトのプロパティー値は各関数にそのまま渡されます。指定できるプロパティーやデフォルト値はtoggle_switch()関数とunderline_textbox()関数を個別に実行する際と同じです。
+#### アンダーライン付きテキストボックスの場合
 
-```javascript
-const args = {
-    toggle_switch_arg: {
-        // toggle_switch()関数に渡す引数を記述
-        toggle_switch_target: "input[type=checkbox].toggle", // ターゲットをCSSセレクターで指定
-        toggle_width: "2.5rem", // トグルスイッチの幅
-        toggle_height: "1rem", // トグルスイッチの高さ
-        toggle_border_thickness: "0.05rem", // トグルスイッチの輪郭線の太さ
-        toggle_border_color: "gray", // トグルスイッチの輪郭線の色
-        toggle_disabled_color: "white", // トグルスイッチがOFFの際の背景色
-        toggle_enabled_color: "#adff99", // トグルスイッチがONの際の背景色
-        toggle_handle_color: "white", // トグルスイッチのハンドルの色
-        toggle_handle_radius: "calc(var(--toggle_height) + 0.4rem)" // トグルスイッチのハンドルの直径
-    },
-    underline_textbox_arg: {
-        // underline_textbox()関数に渡す引数を記述
-        underline_textbox_target :"input[type=text].underline_textbox", // ターゲットをCSSセレクターで指定
-        underline_color_normal: "rgba(0, 0, 0, 0.7)", // 通常時のアンダーラインの色
-        underline_color_focused: "#ff6a00", // テキスト入力中のアンダーラインの色
-        underline_thickness: "0.15rem", // アンダーラインの太さ
-        underline_textbox_width: "50%" // テキストボックスの幅
-    }
-};
-ui.all(args);
+アンダーライン付きテキストボックスの場合は以下のようにしてスタイルを適用してください。
+
+```css
+underlined-textbox::part(textbox) {
+    /* 通常時のテキスト入力部分のスタイル */
+}
+
+underlined-textbox::part(textbox):focus {
+    /* テキスト入力中のテキスト入力部分のスタイル */
+}
+
+underlined-textbox::part(normal_underline) {
+    /* 通常時のアンダーラインのスタイル */
+}
+
+underlined-textbox::part(focused_underline) {
+    /* テキスト入力中のアンダーラインのスタイル */
+}
 ```
 
-all()関数を使用する場合でも各関数を個別に実行する場合でもターゲットのCSSセレクターは自由に指定できますが，ターゲットはinput要素であり，かつtype属性が以下のようになっている必要があります。
+### 属性
 
-|種類|type属性値|
-|:--|:--|
-|トグルスイッチ|``checkbox``|
-|アンダーライン付きテキストボックス|``text``|
+トグルスイッチは内部的には通常のinput要素のチェックボックス，アンダーライン付きテキストボックスは内部的には通常のinput要素のテキストボックスを利用しています。トグルスイッチやアンダーライン付きテキストボックスに与えられた属性は内部で使用しているinput要素にそのまま渡されます。トグルスイッチとアンダーライン付きテキストボックスが対応している属性は以下のとおりです。
 
-### 値の取得/設定の方法
+#### トグルスイッチが対応している属性
 
-値は，トグルスイッチは通常のチェックボックス，アンダーライン付きテキストボックスは通常のテキストボックスと同じ方法で取得したり設定したり出来ます。
+- checked
+
+#### アンダーライン付きテキストボックスが対応している属性
+
+- value
+- autocomplete
+- list
+- maxlength
+- minlength
+- pattern
+- placeholder
+- readonly
+- required
+- size
+
+これらの属性はJavaScriptの``getAttribute()``や``setAttribute()``で取得/設定できます。また，JavaScriptプロパティーを使用して取得/設定することも出来ます。
+
+### イベント
+
+changeイベントとinputイベントに対応しています。イベントの発火条件はトグルスイッチはinput要素のチェックボックス，アンダーライン付きテキストボックスはinput要素のテキストボックスと同じです。これは，内部で使用しているinput要素のイベントをそのまま伝えているためです。
 
 ## ORIZINシリーズとは
 
