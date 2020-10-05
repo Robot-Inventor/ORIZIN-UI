@@ -6,9 +6,21 @@
 
 This document has been translated into English using machine translation. Please let me know if there are any errors.
 
-----
+--------------------
 
 This is a library of UI-related that was created during the development of the ORIZIN series. This has been tested on Google Chrome 85. There is a possibility that this library will not work on older versions of Google Chrome or other web browsers. If you need to support web browsers other than Google Chrome, please be sure to check the operation beforehand.
+
+## What you can do
+
+When you use the ORIZIN UI, you can use the following
+
+- Toggle switches
+- Underlined text box that changes color as you enter text
+- Material design style ripple effect
+
+## Demo
+
+[https://robot-inventor.github.io/ORIZIN-UI/index.html](https://robot-inventor.github.io/ORIZIN-UI/index.html)
 
 ## Usage
 
@@ -27,8 +39,37 @@ Here's a simple example using the ORIZIN UI.
     <underlined-textbox></underlined-textbox>    <!-- textbox with underline -->
 </body>
 <script src="orizin_ui.min.js"></script>
+<script>
+    new Ripple(".ripple_effect", {
+        debug: false, // Turn Ripple.js logging on/off
+        on: 'mousedown', // The event to trigger a ripple effect
+
+        opacity: 0.4, // The opacity of the ripple
+        color: "auto", // Set the background color. If set to "auto", it will use the text color
+        multi: false, // Allow multiple ripples per element
+
+        duration: 0.7, // The duration of the ripple
+
+        // Filter function for modifying the speed of the ripple
+        rate: function(pxPerSecond) {
+            return pxPerSecond;
+        },
+
+        easing: 'linear'
+    });
+</script>
 </html>
 ```
+
+### About ripple effect
+
+It provides a ripple effect with a material design look to a specified element.
+
+This feature uses a customized version of [jakiestfu/Ripple.js](https://github.com/jakiestfu/Ripple.js). It is rewritten to be jQuery-independent and to work with only one JavaScript file.
+
+--------------------
+
+From here on out, here's a description of the toggle switches and underlined text boxes, except for the ripple effect.
 
 ### How to apply CSS
 
@@ -131,6 +172,30 @@ The following OSS are used in this software. Click on the name of the OSS to vie
 MIT License
 
 Copyright (c) 2019 - 2020 Robot-Inventor
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</details>
+<details>
+    <summary>Ripple.js v1.2.1</summary>
+The MIT License (MIT)
+
+Copyright (c) 2014 Jacob Kelley
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

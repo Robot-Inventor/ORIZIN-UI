@@ -6,6 +6,18 @@
 
 ORIZINシリーズの開発過程でできたUI関連のライブラリーです。Google Chrome 85で動作確認しています。古いGoogle Chromeのバージョンや他のWEBブラウザーでは正常に動作しない可能性があります。Google Chrome以外のWEBブラウザーにも対応する必要がある場合は必ず事前に動作確認を行ってください。
 
+## できること
+
+ORIZIN UIを使用すると，以下のものを利用できるようになります。
+
+- トグルスイッチ
+- テキスト入力中に色が変わるアンダーライン付きテキストボックス
+- マテリアルデザイン風リップルエフェクト
+
+## デモ
+
+[https://robot-inventor.github.io/ORIZIN-UI/index.html](https://robot-inventor.github.io/ORIZIN-UI/index.html)
+
 ## 使い方
 
 ORIZIN UIを使った簡単な例です。
@@ -19,12 +31,41 @@ ORIZIN UIを使った簡単な例です。
     <title>ORIZIN UI Sample</title>
 </head>
 <body>
-    <toggle-switch></toggle-switch>    <!-- トグルスイッチ -->
+    <toggle-switch class="ripple_effect"></toggle-switch>    <!-- トグルスイッチ -->
     <underlined-textbox></underlined-textbox>    <!-- アンダーライン付きテキストボックス -->
 </body>
 <script src="orizin_ui.min.js"></script>
+<script>
+    new Ripple(".ripple_effect", {
+        debug: false, // Ripple.jsのロギングのon/of
+        on: 'mousedown', // リップルエフェクトのイベントトリガー
+
+        opacity: 0.4, // リップルの不透明度
+        color: "auto", // 背景色の設定。"auto"の場合はテキストカラーを使用
+        multi: false, // 同じ要素内に同時に複数のリップルを生成することを許可
+
+        duration: 0.7, // リップルの持続時間
+
+        // リップルの速度を変更するためのフィルタ機能
+        rate: function(pxPerSecond) {
+            return pxPerSecond;
+        },
+
+        easing: 'linear'
+    });
+</script>
 </html>
 ```
+
+### リップルエフェクトについて
+
+指定した要素に対してマテリアルデザイン風のリップルエフェクトを提供します。
+
+内部的には，リップルエフェクトを生成するjQueryプラグインの[jakiestfu/Ripple.js](https://github.com/jakiestfu/Ripple.js)をjQuery非依存かつ1個のJavaScriptファイルのみで動作するように書き換えたものを使用しています。
+
+--------------------
+
+ここから先はリップルエフェクト以外の，トグルスイッチとアンダーライン付きテキストボックスの説明になります。
 
 ### CSSの適用方法
 
@@ -129,6 +170,30 @@ ORIZINシリーズは，Robot-Inventorが開発した様々なソフトウェア
 MIT License
 
 Copyright (c) 2019 - 2020 Robot-Inventor
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</details>
+<details>
+    <summary>Ripple.js v1.2.1</summary>
+The MIT License (MIT)
+
+Copyright (c) 2014 Jacob Kelley
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
