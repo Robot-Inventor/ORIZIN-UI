@@ -150,11 +150,11 @@ class UnderlineTextbox extends HTMLElement {
         this._value = null;
         this._autocomplete = null;
         this._list = null;
-        this._maxlength = null;
-        this._minlength = null;
+        this._maxLength = null;
+        this._minLength = null;
         this._pattern = null;
         this._placeholder = null;
-        this._readonly = null;
+        this._readOnly = null;
         this._required = null;
         this._size = null;
 
@@ -281,30 +281,110 @@ class UnderlineTextbox extends HTMLElement {
         input_element.addEventListener("input", () => {
             this.setAttribute("value", input_element.value);
         });
+    }
 
-        Object.keys(this).forEach(function(property_name) {
-            const attribute_name = property_name.replace(/^_+/, '');
-            Object.defineProperty(this, attribute_name, {
-                get: function() {
-                    return this.getAttribute(attribute_name);
-                },
-                set: function(v) {
-                    this.setAttribute(attribute_name, v);
-                    this._input_element.setAttribute(attribute_name, v);
-                }
-            });
-        }, this);
+    get value() {
+        return this._value;
+    }
+    set value(v) {
+        this.setAttribute("value", v);
+    }
+
+    get autocomplete() {
+        return this._autocomplete;
+    }
+    set autocomplete(v) {
+        this.setAttribute("autocomplete", v);
+    }
+
+    get list() {
+        return this._list;
+    }
+    set list(v) {
+        this.setAttribute("list", v);
+    }
+
+    get maxLength() {
+        return this._maxLength;
+    }
+    set maxLength(v) {
+        this.setAttribute("maxlength", v);
+    }
+
+    get minLength() {
+        return this._minLength;
+    }
+    set minLength(v) {
+        this.setAttribute("minlength", v);
+    }
+
+    get pattern() {
+        return this._pattern;
+    }
+    set pattern(v) {
+        this.setAttribute("pattern", v);
+    }
+
+    get placeholder() {
+        return this._placeholder;
+    }
+    set placeholder(v) {
+        this.setAttribute("placeholder", v);
+    }
+
+    get readOnly() {
+        return this._readOnly;
+    }
+    set readOnly(v) {
+        this.setAttribute("readOnly", v);
+    }
+
+    get required() {
+        return this._required;
+    }
+    set required(v) {
+        this.setAttribute("required", v);
+    }
+
+    get size() {
+        return this._size;
+    }
+    set size(v) {
+        this.setAttribute("size", v);
     }
 
     attributeChangedCallback(name, old_value, new_value) {
-        function change_attribute(attribute_name) {
-            const property_name = "_" + attribute_name;
-            this[property_name] = new_value;
-            this._input_element.setAttribute(attribute_name, new_value);
-        }
-
-        if(name in ["value", "autocomplete", "list", "maxlength", "minlength", "pattern", "placeholder", "readonly", "required", "size"]) {
-            change_attribute.bind(this)(name);
+        switch(name) {
+            case "value":
+                this._value = this._input_element.value = new_value;
+                break;
+            case "autocomplete":
+                this._autocomplete = this._input_element.autocomplete = new_value;
+                break;
+            case "list":
+                this._list = this._input_element.list = new_value;
+                break;
+            case "maxlength":
+                this._maxLength = this._input_element.maxLength = new_value;
+                break;
+            case "minlength":
+                this._minLength = this._input_element.minLength = new_value;
+                break;
+            case "pattern":
+                this._pattern = this._input_element.pattern = new_value;
+                break;
+            case "placeholder":
+                this._placeholder = this._input_element.placeholder = new_value;
+                break;
+            case "readonly":
+                this._readOnly = this._input_element.readOnly = new_value;
+                break;
+            case "required":
+                this._required = this._input_element.required = new_value;
+                break;
+            case "size":
+                this._size = this._input_element.size = new_value;
+                break;
         }
     }
 }
@@ -312,9 +392,12 @@ class UnderlineTextbox extends HTMLElement {
 customElements.define("underlined-textbox", UnderlineTextbox);
 
 class Ripple {
-    /*! The Orizinal Program: Ripple.js v1.2.1
+    /*! The Original Program: 
+    *
+    * Ripple.js v1.2.1
     * The MIT License (MIT)
-    * Copyright (c) 2014 Jacob Kelley 
+    * Copyright (c) 2014 Jacob Kelley
+    *
     * Improved by Copyright (c) 2020 Robot-Inventor */
     constructor(selector, options) {
         const self = this;
