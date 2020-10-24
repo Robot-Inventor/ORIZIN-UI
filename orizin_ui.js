@@ -36,52 +36,52 @@ class ToggleSwitch extends HTMLElement {
 
         const style = document.createElement("style");
         style.textContent = `
-        #checkbox {
-            display: none;
-            transition: 0.3s;
-        }
+#checkbox {
+    display: none;
+    transition: 0.3s;
+}
 
-        #checkbox+label {
-            display: inline-block;
-            background: ${toggle_disabled_color};
-            width: ${toggle_width};
-            height: ${toggle_height};
-            border: solid ${toggle_border_thickness} ${toggle_border_color};
-            border-radius: ${toggle_width};
-            margin: calc(${toggle_handle_diameter} - ${toggle_height});
-            padding: 0;
-            vertical-align: bottom;
-            overflow: visible;
-            transition: 0.3s;
-            cursor: pointer;
-        }
+#checkbox+label {
+    display: inline-block;
+    background: ${toggle_disabled_color};
+    width: ${toggle_width};
+    height: ${toggle_height};
+    border: solid ${toggle_border_thickness} ${toggle_border_color};
+    border-radius: ${toggle_width};
+    margin: calc(${toggle_handle_diameter} - ${toggle_height});
+    padding: 0;
+    vertical-align: bottom;
+    overflow: visible;
+    transition: 0.3s;
+    cursor: pointer;
+}
 
-        #checkbox:checked+label {
-            background: ${toggle_enabled_color};
-        }
+#checkbox:checked+label {
+    background: ${toggle_enabled_color};
+}
 
-        #checkbox+label div {
-            display: block;
-            background: ${toggle_handle_color};
-            width: ${toggle_handle_diameter};
-            height: ${toggle_handle_diameter};
-            border: ${toggle_border_color} solid ${toggle_border_thickness};
-            border-radius: ${toggle_width};
-            transition: 0.3s;
-            margin: 0;
-            position: relative;
-            top: calc(${toggle_border_thickness} * -1 - 0.2rem);
-            left: calc(${toggle_border_thickness} * -1 - 0.2rem);
-        }
+#checkbox+label div {
+    display: block;
+    background: ${toggle_handle_color};
+    width: ${toggle_handle_diameter};
+    height: ${toggle_handle_diameter};
+    border: ${toggle_border_color} solid ${toggle_border_thickness};
+    border-radius: ${toggle_width};
+    transition: 0.3s;
+    margin: 0;
+    position: relative;
+    top: calc(${toggle_border_thickness} * -1 - 0.2rem);
+    left: calc(${toggle_border_thickness} * -1 - 0.2rem);
+}
 
-        #checkbox:checked+label div {
-            margin-left: 100%;
-            transform: translateX(-50%);
-        }
+#checkbox:checked+label div {
+    margin-left: 100%;
+    transform: translateX(-50%);
+}
 
-        :host {
-            display: inline-block;
-        }
+:host {
+    display: inline-block;
+}
         `;
 
         shadow.appendChild(checkbox_element);
@@ -214,56 +214,56 @@ class UnderlineTextbox extends HTMLElement {
 
         const style = document.createElement("style");
         style.textContent = `
-        #textbox {
-            width: 100%;
-            height: 100%;
-            border: none;
-            outline: none;
-            background: transparent;
-            margin: 0 0 ${underline_thickness} 0;
-            padding: ${underline_thickness};
-            box-sizing: border-box;
-        }
+#textbox {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    margin: 0 0 ${underline_thickness} 0;
+    padding: ${underline_thickness};
+    box-sizing: border-box;
+}
 
-        #textbox + #underline_group {
-            width: 100%;
-            height: ${underline_thickness};
-            position: relative;
-            left: 0;
-            top: calc(-1.5 * ${underline_thickness});
-            margin: 0;
-            padding: 0;
-        }
+#textbox + #underline_group {
+    width: 100%;
+    height: ${underline_thickness};
+    position: relative;
+    left: 0;
+    top: calc(-1.5 * ${underline_thickness});
+    margin: 0;
+    padding: 0;
+}
 
-        #textbox + #underline_group #normal_underline {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background: ${underline_color_normal};
-            border-radius: ${underline_thickness};
-            margin: 0;
-            padding: 0;
-        }
+#textbox + #underline_group #normal_underline {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: ${underline_color_normal};
+    border-radius: ${underline_thickness};
+    margin: 0;
+    padding: 0;
+}
 
-        #textbox + #underline_group #focused_underline {
-            width: 0;
-            height: 100%;
-            position: absolute;
-            background: ${underline_color_focused};
-            transition: 0.3s;
-            margin: 0 0 0 50%;
-            padding: 0;
-            border-radius: ${underline_thickness};
-        }
+#textbox + #underline_group #focused_underline {
+    width: 0;
+    height: 100%;
+    position: absolute;
+    background: ${underline_color_focused};
+    transition: 0.3s;
+    margin: 0 0 0 50%;
+    padding: 0;
+    border-radius: ${underline_thickness};
+}
 
-        #textbox:focus + #underline_group #focused_underline {
-            width: 100%;
-            margin: 0;
-        }
+#textbox:focus + #underline_group #focused_underline {
+    width: 100%;
+    margin: 0;
+}
 
-        :host {
-            display: inline-block;
-        }
+:host {
+    display: inline-block;
+}
         `;
 
         shadow.appendChild(input_element);
@@ -588,5 +588,130 @@ class Ripple {
         ripple_elements.forEach(element => {
             element.addEventListener(self.defaults.on, Trigger);
         });
+    }
+}
+
+class Notification {
+    constructor() {
+        const notification_style = document.createElement("style");
+        notification_style.textContent = `
+div#notification_outer {
+    width: min-content;
+    position: fixed;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    text-align: right;
+}
+
+div.notification {
+    width: 50vmin;
+    height: auto;
+    display: inline-block;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    transition: 0.3s;
+    box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.3);
+    animation: notification_animation 1s ease;
+    cursor: default;
+    text-align: left;
+}
+
+div.notification:hover {
+    box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+div.notification.normal {
+    background: rgb(255, 255, 255);
+    border-bottom: solid 0.1rem blue;
+    color: #959595;
+}
+
+div.notification.warning {
+    background: rgb(255, 220, 220);
+    border-bottom: solid 0.1rem red;
+    color: #838382;
+}
+
+div.notification.caution {
+    background: rgb(255, 255, 220);
+    border-bottom: solid 0.1rem rgb(255, 180, 0);
+    color: #949393;
+}
+
+div.notification span.close {
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 1rem;
+    vertical-align: top;
+    user-select: none;
+}
+
+div.notification p {
+    width: auto;
+    max-width: calc(100% - 3rem);
+    height: auto;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes notification_animation {
+    0% {
+        opacity: 0;
+        transform: translate(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+        `;
+        document.body.appendChild(notification_style);
+
+        const notification_outer = document.createElement("div");
+        notification_outer.setAttribute("id", "notification_outer");
+        document.body.appendChild(notification_outer);
+    }
+
+    notify({
+        message = "",
+        callback = function(){},
+        auto_close_time,
+        type = "normal",
+    } = {}
+    ) {
+        function close_notify() {
+            notifier.style.opacity = 0;
+            callback();
+            setTimeout(() => {
+                notifier.remove();
+            }, 300);
+        }
+
+        const notifier = document.createElement("div");
+        notifier.setAttribute("class", `notification ${type}`);
+
+        const close_button = document.createElement("span");
+        close_button.setAttribute("class", "close");
+        close_button.setAttribute("title", "close");
+        close_button.textContent = "X";
+        close_button.addEventListener("click", function() {
+            close_notify();
+        });
+
+        const message_area = document.createElement("p");
+        message_area.textContent = message;
+
+        notifier.appendChild(close_button);
+        notifier.appendChild(message_area);
+
+        document.getElementById("notification_outer").appendChild(notifier);
+        setTimeout(function() {
+            if(auto_close_time) {
+                setTimeout(function() {
+                    close_button.click();
+                }, auto_close_time);
+            }
+        }, 300);
     }
 }

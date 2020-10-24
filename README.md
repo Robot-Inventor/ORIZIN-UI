@@ -8,11 +8,12 @@ ORIZINシリーズの開発過程でできたUI関連のライブラリーです
 
 ## できること
 
-ORIZIN UIを使用すると，以下のものを利用できるようになります。
+ORIZIN UIを使用すると、以下のものを利用できるようになります。
 
 - トグルスイッチ
 - テキスト入力中に色が変わるアンダーライン付きテキストボックス
 - マテリアルデザイン風リップルエフェクト
+- 画面内の通知の表示
 
 ## デモ
 
@@ -53,6 +54,16 @@ ORIZIN UIを使った簡単な例です。
 
         easing: 'linear'
     });
+
+    const notifier = new Notification();
+    notifier.notify({
+        message: "Notification test", // 通知の内容
+        callback: function() {  // 通知が閉じられたときに実行する処理
+            alert("Notification closed.");
+        },
+        auto_close_time: 10000, // 自動で通知を閉じるまでの時間（ミリ秒）
+        type = "normal", // 通知の種類。「normal」「caution」「warning」から選択可能
+    });
 </script>
 </html>
 ```
@@ -61,15 +72,40 @@ ORIZIN UIを使った簡単な例です。
 
 指定した要素に対してマテリアルデザイン風のリップルエフェクトを提供します。
 
-内部的には，リップルエフェクトを生成するjQueryプラグインの[jakiestfu/Ripple.js](https://github.com/jakiestfu/Ripple.js)をjQuery非依存かつ1個のJavaScriptファイルのみで動作するように書き換えたものを使用しています。
+内部的には、リップルエフェクトを生成するjQueryプラグインの[jakiestfu/Ripple.js](https://github.com/jakiestfu/Ripple.js)をjQuery非依存かつ1個のJavaScriptファイルのみで動作するように書き換えたものを使用しています。
+
+### 画面内通知について
+
+画面の右下に通知を表示する機能を提供します。たとえば以下のようにして使います。
+
+```javascript
+const notifier = new Notification();
+notifier.notify({
+    message: "Notification test", // 通知の内容
+    callback: function() {  // 通知が閉じられたときに実行する処理
+        alert("Notification closed.");
+    },
+    auto_close_time: 10000, // 自動で通知を閉じるまでの時間（ミリ秒）
+    type = "normal", // 通知の種類。「normal」「caution」「warning」から選択可能
+});
+```
+
+すべての引数は省略可能で、デフォルト値は以下のとおりです。
+
+|引数|デフォルト値|
+|:--|:--|
+|message|（空）|
+|callback|（なし）|
+|auto_close_time|undefined（自動で閉じない）|
+|type|normal|
 
 --------------------
 
-ここから先はリップルエフェクト以外の，トグルスイッチとアンダーライン付きテキストボックスの説明になります。
+ここから先はトグルスイッチとアンダーライン付きテキストボックスの説明になります。
 
 ### CSSの適用方法
 
-``::part()``を使用してスタイルを適用することが出来ます。
+``::part()``を使用してスタイルを適用できます。
 
 #### トグルスイッチの場合
 
@@ -93,7 +129,7 @@ toggle-switch[checked]::part(handle) {
 }
 ```
 
-注意点として，``toggle-switch``そのものに``width``や``height``を指定してもトグルスイッチの大きさは変わりません。大きさを変更したい場合は基本的には上記のCSSの書き方でパーツごとに行うことになりますが，縦と横の比率を変えないのであれば``transform``で十分かもしれません。例えば2倍の大きさにする場合は以下のようになります。
+注意点として、``toggle-switch``そのものに``width``や``height``を指定してもトグルスイッチの大きさは変わりません。大きさを変更したい場合は基本的には上記のCSSの書き方でパーツごとに行うことになりますが、縦と横の比率を変えないのであれば``transform``で十分かもしれません。たとえば2倍の大きさにする場合は以下のようになります。
 
 ```css
 toggle-switch {
@@ -125,7 +161,7 @@ underlined-textbox::part(focused_underline) {
 
 ### 属性
 
-トグルスイッチは内部的には通常のinput要素のチェックボックス，アンダーライン付きテキストボックスは内部的には通常のinput要素のテキストボックスを利用しています。トグルスイッチやアンダーライン付きテキストボックスに与えられた属性は内部で使用しているinput要素にそのまま渡されます。トグルスイッチとアンダーライン付きテキストボックスが対応している属性は以下のとおりです。
+トグルスイッチは内部的には通常のinput要素のチェックボックス、アンダーライン付きテキストボックスは内部的には通常のinput要素のテキストボックスを利用しています。トグルスイッチやアンダーライン付きテキストボックスに与えられた属性は内部で使用しているinput要素にそのまま渡されます。トグルスイッチとアンダーライン付きテキストボックスが対応している属性は以下のとおりです。
 
 #### トグルスイッチが対応している属性
 
@@ -144,15 +180,15 @@ underlined-textbox::part(focused_underline) {
 - required
 - size
 
-これらの属性はJavaScriptの``getAttribute()``や``setAttribute()``で取得/設定できます。また，JavaScriptプロパティーを使用して取得/設定することも出来ます。
+これらの属性はJavaScriptの``getAttribute()``や``setAttribute()``で取得/設定できます。また、JavaScriptプロパティーを使用して取得/設定することもできます。
 
-### イベント
+#### イベント
 
-changeイベントとinputイベントに対応しています。イベントの発火条件はトグルスイッチはinput要素のチェックボックス，アンダーライン付きテキストボックスはinput要素のテキストボックスと同じです。これは，内部で使用しているinput要素のイベントをそのまま伝えているためです。
+changeイベントとinputイベントに対応しています。イベントの発火条件はトグルスイッチはinput要素のチェックボックス、アンダーライン付きテキストボックスはinput要素のテキストボックスと同じです。これは、内部で使用しているinput要素のイベントをそのまま伝えているためです。
 
 ## ORIZINシリーズとは
 
-ORIZINシリーズは，Robot-Inventorが開発した様々なソフトウェアです。
+ORIZINシリーズは、Robot-Inventorが開発したさまざまなソフトウェアです。
 
 ↓一覧
 
@@ -163,7 +199,7 @@ ORIZINシリーズは，Robot-Inventorが開発した様々なソフトウェア
 
 ## OSSライセンス
 
-本ソフトウェアでは，以下のOSSを使用しています。OSSの名前をクリックするとライセンスが表示されます。
+本ソフトウェアでは、以下のOSSを使用しています。OSSの名前をクリックするとライセンスが表示されます。
 
 <details>
     <summary>ORIZIN Agent HTML</summary>

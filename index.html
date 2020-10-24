@@ -38,14 +38,26 @@
                 <div>Double click me!</div>
             </div>
         </div>
+        <div class="outer">
+            <h2>通知</h2>
+            <underlined-textbox id="notify_content_input" value="これは通知です。"></underlined-textbox><button class="ripple_effect" id="notify_button">通知を表示</button>
+            <form id="notification_setting">
+                <input type="radio" name="notification_type" value="normal" id="normal" checked><label for="normal" class="ripple_effect">normal</label>
+                <input type="radio" name="notification_type" value="caution" id="caution"><label for="caution" class="ripple_effect">caution</label>
+                <input type="radio" name="notification_type" value="warning" id="warning"><label for="warning" class="ripple_effect">warning</label>
+            </form>
+        </div>
     </main>
     <footer>
         Copyright (c) 2020 Robot-Inventor
     </footer>
     <style>
         * {
-            color: rgba(0, 0, 0, 0.7);
             font-family: "Yu Gothic" "YuGothic" sans-serif;
+        }
+
+        :root {
+            --text_color: rgba(0, 0, 0, 0.7);
         }
 
         a {
@@ -59,8 +71,8 @@
         }
 
         @media (prefers-color-scheme: dark) {
-            * {
-                color: white;
+            :root {
+                --text_color: white;
             }
 
             html,
@@ -68,22 +80,24 @@
             main {
                 background: #111111;
             }
+        }
 
-            underlined-textbox::part(normal_underline) {
-                background: white;
-            }
+        underlined-textbox::part(normal_underline) {
+            background: var(--text_color);
+        }
 
-            underlined-textbox::part(textbox) {
-                color: white;
-            }
+        underlined-textbox::part(textbox) {
+            color: var(--text_color);
         }
 
         #language_select {
             margin-left: 2rem;
+            color: var(--text_color);
         }
 
         h1 {
             margin-left: 2rem;
+            color: var(--text_color);
         }
 
         #download_link {
@@ -111,6 +125,7 @@
             border: solid gray 0.1rem;
             margin: 2rem;
             padding: 0 2rem 2rem 2rem;
+            color: var(--text_color);
         }
 
         button {
@@ -154,6 +169,20 @@
             margin-top: 5rem;
             padding: 2rem;
             border-top: 0.1rem solid gray;
+            color: var(--text_color);
+        }
+
+        form {
+            margin-top: 1rem;
+        }
+
+        input[type=radio],
+        input[type=radio] + label {
+            cursor: pointer;
+        }
+
+        input[type=radio] + label {
+            overflow: hidden;
         }
     </style>
     <script src="orizin_ui.min.js"></script>
@@ -191,6 +220,15 @@
         new Ripple(".multi_ripple_effect", {
             color: "white",
             multi: true
+        });
+
+        const notifier = new Notification();
+
+        document.getElementById("notify_button").addEventListener("click", function() {
+            notifier.notify({
+                message: document.getElementById("notify_content_input").value,
+                type: document.getElementById("notification_setting").notification_type.value
+            })
         });
     </script>
 </body>

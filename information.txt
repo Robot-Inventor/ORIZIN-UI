@@ -1,5 +1,4 @@
 Series Name:ORIZIN UI
-Edition:N/A
-Version:v3.0.6.1
-Code Name:Crane
-Date:2020-10-15 JST
+Version:v4.0.7.0
+Code Name:Duck
+Date:2020-10-24 JST

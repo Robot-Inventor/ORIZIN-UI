@@ -17,6 +17,7 @@ When you use the ORIZIN UI, you can use the following
 - Toggle switches
 - Underlined text box that changes color as you enter text
 - Material design style ripple effect
+- Displaying notifications on the screen
 
 ## Demo
 
@@ -57,6 +58,16 @@ Here's a simple example using the ORIZIN UI.
 
         easing: 'linear'
     });
+
+    const notifier = new Notification();
+    notifier.notify({
+        message: "Notification test", // Content of the notification
+        callback: function() {  // What to do when the notification is closed
+            alert("Notification closed.");
+        },
+        auto_close_time: 10000, // Time to close notifications automatically (milliseconds)
+        type = "normal", // Type of notification. You can select from "normal", "caution" or "warning
+    });
 </script>
 </html>
 ```
@@ -67,9 +78,34 @@ It provides a ripple effect with a material design look to a specified element.
 
 This feature uses a customized version of [jakiestfu/Ripple.js](https://github.com/jakiestfu/Ripple.js). It is rewritten to be jQuery-independent and to work with only one JavaScript file.
 
+### About On-Screen Notifications
+
+It provides a function to display a notification in the lower right corner of the screen. For example, you can use it in the following way.
+
+```javascript
+const notifier = new Notification();
+notifier.notify({
+    message: "Notification test", // Content of the notification
+    callback: function() {  // What to do when the notification is closed
+        alert("Notification closed.");
+    },
+    auto_close_time: 10000, // Time to close notifications automatically (milliseconds)
+    type = "normal", // Type of notification. You can select from "normal", "caution" or "warning
+});
+```
+
+All arguments are optional and their default values are as follows:
+
+|Argument|default value|
+|:--|:--|
+|message|(empty)|
+|callback|(nothing)|
+|auto_close_time|undefined（It won't close automatically.）|
+|type|normal|
+
 --------------------
 
-From here on out, here's a description of the toggle switches and underlined text boxes, except for the ripple effect.
+From here on out, here's a description of the toggle switches and underlined text boxes.
 
 ### How to apply CSS
 
@@ -150,7 +186,7 @@ The toggle switches are internally normal input element check boxes, and the und
 
 These attributes can be retrieved and set with ``getAttribute()`` and ``setAttribute()`` in JavaScript. They can also be retrieved and set using JavaScript properties.
 
-### Events
+#### Events
 
 This corresponds to the change event and input event. In terms of event firing conditions, the toggle switch is the same as the check box of the input element, and the text box with underline is the same as the text box of the input element. This is because we are conveying the events of the input element as it is used internally.
 
