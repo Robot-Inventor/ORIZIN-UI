@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.min.css">
+    <title>ORIZIN UI Sample</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1></h1>
+            <a href="https://github.com/Robot-Inventor/ORIZIN-UI" id="download_link" class="ripple_effect"></a>
+        </header>
+        <form id="language_select">
+            <input type="radio" name="language" id="language_ja" value="ja"><label for="language_ja">日本語</label>
+            <input type="radio" name="language" id="language_en" value="en"><label for="language_en">English</label>
+        </form>
+        <div class="outer">
+            <h2></h2>
+            <div>
+                <toggle-switch id="checkbox_sample"></toggle-switch>
+                <div id="checkbox_result">not checked!</div>
+                <toggle-switch id="checkbox_sample2" checked></toggle-switch>
+                <div id="checkbox_result2">checked!</div>
+            </div>
+        </div>
+        <div class="outer">
+            <h2></h2>
+            <div>
+                <underlined-textbox id="underline_textbox_sample" value="hogehoge"></underlined-textbox>
+                <button id="get_text" class="ripple_effect"></button><br>
+                <span class="multi_language_support_text"></span> <span id="underline_textbox_result">hogehoge</span>
+            </div>
+        </div>
+        <div class="outer">
+            <h2></h2>
+            <div class="ripple_effect">
+                <div class="multi_language_support_text"></div>
+            </div>
+            <div class="multi_ripple_effect">
+                <div class="multi_language_support_text"></div>
+            </div>
+        </div>
+        <div class="outer">
+            <h2></h2>
+            <underlined-textbox id="notify_content_input" value="Sample text"></underlined-textbox><button class="ripple_effect" id="notify_button"></button>
+            <form id="notification_setting">
+                <input type="radio" name="notification_type" value="normal" id="normal" checked><label for="normal" class="ripple_effect multi_language_support_text"></label>
+                <input type="radio" name="notification_type" value="caution" id="caution"><label for="caution" class="ripple_effect multi_language_support_text"></label>
+                <input type="radio" name="notification_type" value="warning" id="warning"><label for="warning" class="ripple_effect multi_language_support_text"></label>
+            </form>
+        </div>
+    </main>
+    <footer>
+        Copyright (c) 2020 Robot-Inventor
+    </footer>
+    <script src="orizin_ui.min.js"></script>
+    <script src="main.min.js"></script>
+</body>
+</html>
