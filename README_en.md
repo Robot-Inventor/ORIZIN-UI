@@ -8,7 +8,7 @@ This document has been translated into English using machine translation. Please
 
 --------------------
 
-This is a library of UI-related that was created during the development of the ORIZIN series. This has been tested on Google Chrome 85. There is a possibility that this library will not work on older versions of Google Chrome or other web browsers. If you need to support web browsers other than Google Chrome, please be sure to check the operation beforehand.
+This is a library of UI-related that was created during the development of the ORIZIN series. This has been tested on Google Chrome 86. There is a possibility that this library will not work on older versions of Google Chrome or other web browsers. If you need to support web browsers other than Google Chrome, please be sure to check the operation beforehand.
 
 ## What you can do
 
