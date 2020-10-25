@@ -99,12 +99,9 @@ document.getElementById("get_text").addEventListener("click", function() {
     document.getElementById("underline_textbox_result").textContent = document.getElementById("underline_textbox_sample").value;
 });
 
-new Ripple(".ripple_effect", {
-    color: "white"
-});
+new Ripple(".ripple_effect");
 
 new Ripple(".multi_ripple_effect", {
-    color: "white",
     multi: true
 });
 
