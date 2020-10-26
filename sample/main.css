@@ -1,13 +1,10 @@
 * {
     font-family: "Yu Gothic" "YuGothic" sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
     --text_color: rgba(0, 0, 0, 0.7);
-}
-
-a {
-    color: #8585ff
 }
 
 html,
