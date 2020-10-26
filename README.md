@@ -127,6 +127,14 @@ toggle-switch::part(handle) {
 toggle-switch[checked]::part(handle) {
     /* onのときのトグルスイッチのハンドル部分のスタイル */
 }
+
+toggle-switch::part(ripple) {
+    /* トグルスイッチのリップルエフェクトのスタイル */
+}
+
+toggle-switch:active::part(ripple) {
+    /* トグルスイッチのクリック時のリップルエフェクトのスタイル */
+}
 ```
 
 注意点として、``toggle-switch``そのものに``width``や``height``を指定してもトグルスイッチの大きさは変わりません。大きさを変更したい場合は基本的には上記のCSSの書き方でパーツごとに行うことになりますが、縦と横の比率を変えないのであれば``transform``で十分かもしれません。たとえば2倍の大きさにする場合は以下のようになります。

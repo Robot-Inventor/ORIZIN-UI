@@ -34,6 +34,11 @@ class ToggleSwitch extends HTMLElement {
         const toggle_handle_element = document.createElement("div");
         toggle_handle_element.setAttribute("part", "handle");
 
+        const ripple = document.createElement("div");
+        ripple.setAttribute("part", "ripple");
+        ripple.setAttribute("part", "ripple");
+        toggle_handle_element.appendChild(ripple);
+
         const style = document.createElement("style");
         style.textContent = `
 #checkbox {
@@ -54,6 +59,7 @@ class ToggleSwitch extends HTMLElement {
     overflow: visible;
     transition: 0.3s;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #checkbox:checked+label {
@@ -77,6 +83,24 @@ class ToggleSwitch extends HTMLElement {
 #checkbox:checked+label div {
     margin-left: 100%;
     transform: translateX(-50%);
+}
+
+#checkbox+label div div {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: gray;
+    border-radius: 100%;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+#checkbox+label div:active div,
+#checkbox+label:active div div {
+    opacity: 0.4;
 }
 
 :host {

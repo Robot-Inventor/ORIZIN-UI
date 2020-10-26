@@ -131,6 +131,14 @@ toggle-switch::part(handle) {
 toggle-switch[checked]::part(handle) {
     /* Style of the toggle switch handle when the toggle switch is on */
 }
+
+toggle-switch::part(ripple) {
+    /* Style of the toggle switch ripple effect */
+}
+
+toggle-switch:active::part(ripple) {
+    /* Style of the ripple effect when clicking the toggle switch */
+}
 ```
 
 As a reminder, the size of the toggle switches will not change even if you specify ``width`` or ``height`` to ``toggle-switch`` themselves. If you want to change the size of the toggle switches, you should basically use the CSS above to change the size of each part, but if you don't want to change the ratio of height to width, ``transform`` may be enough. For example, if you want to make them twice as big, you can use the following.
