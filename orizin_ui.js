@@ -100,7 +100,7 @@ class ToggleSwitch extends HTMLElement {
 
 #checkbox+label div:active div,
 #checkbox+label:active div div {
-    opacity: 0.4;
+    opacity: 0.7;
 }
 
 :host {

@@ -1,4 +1,4 @@
 Series Name:ORIZIN UI
-Version:v4.1.10.0
+Version:v4.1.11.1
 Code Name:Duck
 Date:2020-10-26 JST
